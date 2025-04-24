@@ -1,0 +1,14 @@
+# ห้าม commit พวก token และ client secret
+token.json
+client_secret_*.json
+
+# ไฟล์ dotenv ถ้ามี
+.env
+
+# Node / Go / VS Code / OS junk
+node_modules/
+dist/
+*.log
+*.exe
+.DS_Store
+.vscode/

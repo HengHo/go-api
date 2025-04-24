@@ -1,0 +1,93 @@
+definitions:
+  backend-service_pkg_utilities_responses.ErrorDetail:
+    properties:
+      message:
+        example: Internal Server Error
+        type: string
+      stack:
+        example: Error:Database error
+        type: string
+    type: object
+  backend-service_pkg_utilities_responses.ErrorResponse:
+    properties:
+      code:
+        example: UNHANDLED_EXCEPTION
+        type: string
+      error:
+        $ref: '#/definitions/backend-service_pkg_utilities_responses.ErrorDetail'
+    type: object
+  backend-service_pkg_utilities_responses.Response:
+    properties:
+      code:
+        example: SUCCESS
+        type: string
+      data: {}
+      message:
+        example: successfully
+        type: string
+    type: object
+  internal_api_controllers.StudentDTO:
+    properties:
+      createdAt:
+        example: "2023-05-17 23:50:50"
+        type: string
+      email:
+        example: jimmy@hiso.com
+        type: string
+      firstName:
+        example: Jimmy
+        type: string
+      lastName:
+        example: Karuture
+        type: string
+      updatedAt:
+        example: "2023-05-17 23:50:50"
+        type: string
+    type: object
+info:
+  contact:
+    email: akekapon.s@multiinno.com
+    name: บริษัท มัลติ อินโนเวชั่น เอนยิเนียริ่ง จำกัด
+    url: https://multiinno.com/
+  description: Go API document
+  title: Go
+  version: v1
+paths:
+  /v1/students:
+    post:
+      consumes:
+      - application/json
+      description: Create a new student record
+      parameters:
+      - description: Student details
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/internal_api_controllers.StudentDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/backend-service_pkg_utilities_responses.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/backend-service_pkg_utilities_responses.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/backend-service_pkg_utilities_responses.ErrorResponse'
+      security:
+      - X-API-Key: []
+      summary: Create Student
+      tags:
+      - Students
+securityDefinitions:
+  X-API-Key:
+    in: header
+    name: X-API-Key
+    type: apiKey
+swagger: "2.0"

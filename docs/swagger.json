@@ -1,0 +1,139 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Go API document",
+        "title": "Go",
+        "contact": {
+            "name": "บริษัท มัลติ อินโนเวชั่น เอนยิเนียริ่ง จำกัด",
+            "url": "https://multiinno.com/",
+            "email": "akekapon.s@multiinno.com"
+        },
+        "version": "v1"
+    },
+    "paths": {
+        "/v1/students": {
+            "post": {
+                "security": [
+                    {
+                        "X-API-Key": []
+                    }
+                ],
+                "description": "Create a new student record",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Students"
+                ],
+                "summary": "Create Student",
+                "parameters": [
+                    {
+                        "description": "Student details",
+                        "name": "student",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_api_controllers.StudentDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/backend-service_pkg_utilities_responses.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/backend-service_pkg_utilities_responses.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/backend-service_pkg_utilities_responses.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "backend-service_pkg_utilities_responses.ErrorDetail": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Internal Server Error"
+                },
+                "stack": {
+                    "type": "string",
+                    "example": "Error:Database error"
+                }
+            }
+        },
+        "backend-service_pkg_utilities_responses.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "UNHANDLED_EXCEPTION"
+                },
+                "error": {
+                    "$ref": "#/definitions/backend-service_pkg_utilities_responses.ErrorDetail"
+                }
+            }
+        },
+        "backend-service_pkg_utilities_responses.Response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "SUCCESS"
+                },
+                "data": {},
+                "message": {
+                    "type": "string",
+                    "example": "successfully"
+                }
+            }
+        },
+        "internal_api_controllers.StudentDTO": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2023-05-17 23:50:50"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "jimmy@hiso.com"
+                },
+                "firstName": {
+                    "type": "string",
+                    "example": "Jimmy"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Karuture"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2023-05-17 23:50:50"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "X-API-Key": {
+            "type": "apiKey",
+            "name": "X-API-Key",
+            "in": "header"
+        }
+    }
+}
